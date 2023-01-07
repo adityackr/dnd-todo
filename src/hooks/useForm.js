@@ -24,7 +24,6 @@ const useForm = (init) => {
 	const handleSubmit = (e, cb) => {
 		e.preventDefault();
 		cb();
-		setState(init);
 	};
 
 	return {
