@@ -22,8 +22,15 @@ const style = {
 	p: 4,
 };
 
-const Todo = ({ addTodo, todos, updatedTodos, deleteTodo, heading }) => {
-	const [edit, setEdit] = useState(false);
+const Todo = ({
+	addTodo,
+	todos,
+	updatedTodos,
+	deleteTodo,
+	heading,
+	handleClose,
+}) => {
+	// const [edit, setEdit] = useState(false);
 	const [add, setAdd] = useState(false);
 
 	const handleAddButton = () => {
@@ -41,7 +48,6 @@ const Todo = ({ addTodo, todos, updatedTodos, deleteTodo, heading }) => {
 
 	const handleUpdatedTodos = (todo) => {
 		updatedTodos(todo);
-		setEdit(!edit);
 	};
 
 	return (
@@ -89,7 +95,7 @@ const Todo = ({ addTodo, todos, updatedTodos, deleteTodo, heading }) => {
 								direction="row"
 								spacing={0.05}
 							>
-								<Button size="small" onClick={() => setEdit(true)}>
+								<Button size="small" onClick={() => handleClose(todo.id)}>
 									<EditIcon color="success" />
 								</Button>
 								<Button size="small" onClick={() => deleteTodo(todo.id)}>
@@ -98,7 +104,7 @@ const Todo = ({ addTodo, todos, updatedTodos, deleteTodo, heading }) => {
 							</Stack>
 						</Stack>
 
-						<Modal open={edit} onClose={() => setEdit(false)}>
+						<Modal open={todo.edit} onClose={() => handleClose(todo.id)}>
 							<Box sx={style}>
 								<TodoForm values={todo} handleTodo={handleUpdatedTodos} />
 							</Box>

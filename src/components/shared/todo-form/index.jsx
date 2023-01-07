@@ -16,6 +16,7 @@ const TodoForm = ({
 		status: '',
 		priority: '',
 		deadline: '',
+		edit: false,
 	},
 	handleTodo,
 }) => {
@@ -24,8 +25,6 @@ const TodoForm = ({
 	const cb = () => {
 		handleTodo(state);
 	};
-
-	console.log(state);
 
 	return (
 		<form onSubmit={(e) => handleSubmit(e, cb)}>

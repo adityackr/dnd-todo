@@ -24,7 +24,9 @@ const App = () => {
 
 	const updatedTodo = (upTodo) => {
 		const updatedTodos = todos.map((todo) => {
-			if (todo.id === upTodo.id) return upTodo;
+			if (todo.id === upTodo.id) {
+				return { ...upTodo, edit: false };
+			}
 			return todo;
 		});
 		setTodos(updatedTodos);
@@ -32,6 +34,16 @@ const App = () => {
 
 	const deleteTodo = (id) => {
 		const updatedTodos = todos.filter((todo) => todo.id !== id);
+		setTodos(updatedTodos);
+	};
+
+	const handleClose = (id) => {
+		const updatedTodos = todos.map((todo) => {
+			if (todo.id === id) {
+				return { ...todo, edit: !todo.edit };
+			}
+			return todo;
+		});
 		setTodos(updatedTodos);
 	};
 
@@ -51,6 +63,7 @@ const App = () => {
 								addTodo={addTodo}
 								todos={todoStatus}
 								updatedTodos={updatedTodo}
+								handleClose={handleClose}
 								deleteTodo={deleteTodo}
 								heading={'TODO'}
 							/>
@@ -62,6 +75,7 @@ const App = () => {
 								addTodo={addTodo}
 								todos={inProgressStatus}
 								updatedTodos={updatedTodo}
+								handleClose={handleClose}
 								deleteTodo={deleteTodo}
 								heading={'In Progress'}
 							/>
@@ -73,6 +87,7 @@ const App = () => {
 								addTodo={addTodo}
 								todos={doneStatus}
 								updatedTodos={updatedTodo}
+								handleClose={handleClose}
 								deleteTodo={deleteTodo}
 								heading={'Done'}
 							/>
