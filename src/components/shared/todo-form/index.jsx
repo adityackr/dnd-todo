@@ -1,14 +1,15 @@
 import React from 'react';
 import useForm from '../../../hooks/useForm';
 
-const init = {
-	task: '',
-	status: '',
-	priority: '',
-	deadline: '',
-};
-
-const TodoForm = ({ values = init, handleTodo }) => {
+const TodoForm = ({
+	values = {
+		task: '',
+		status: 'Todo',
+		priority: 'High',
+		deadline: '',
+	},
+	handleTodo,
+}) => {
 	const {
 		formState: state,
 		handleChange,
@@ -18,8 +19,6 @@ const TodoForm = ({ values = init, handleTodo }) => {
 	const cb = () => {
 		handleTodo(state);
 	};
-
-	console.log({ ...state });
 
 	return (
 		<form onSubmit={(e) => handleSubmit(e, cb)}>

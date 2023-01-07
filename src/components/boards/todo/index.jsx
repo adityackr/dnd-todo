@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import TodoForm from '../../shared/todo-form';
 
-const Todo = ({ addTodo, todos, updatedTodo }) => {
+const Todo = ({ addTodo, todos, updatedTodos, deleteTodo, heading }) => {
 	const [edit, setEdit] = useState(false);
 	const [add, setAdd] = useState(false);
 
@@ -11,25 +11,23 @@ const Todo = ({ addTodo, todos, updatedTodo }) => {
 
 	const handleTodo = (values) => {
 		addTodo(values);
+		setAdd(false);
 	};
-
-	const handleEdit = () => {
-		setEdit(true);
-	};
-
-	const filteredTodos = todos.filter((todo) => todo.status === 'Todo');
 
 	return (
 		<div>
-			<h3>TODO</h3>
+			<h3>{heading}</h3>
 			<button onClick={handleAddButton}>Add New</button>
 			{add && <TodoForm handleTodo={handleTodo} />}
-			{filteredTodos.map((todo) => (
+			{todos.map((todo) => (
 				<div key={todo.id}>
-					<h4>{todo.task}</h4>
-					<button onClick={handleEdit}>Edit</button>
-					{console.log(todo)}
-					{edit && <TodoForm values={{ ...todo }} handleTodo={updatedTodo} />}
+					<h4>
+						{todo.task} <small>{todo.priority}</small>{' '}
+						<small>{todo.deadline}</small>
+					</h4>
+					<button onClick={() => setEdit(true)}>Edit</button>
+					<button onClick={() => deleteTodo(todo.id)}>Delete</button>
+					{edit && <TodoForm values={todo} handleTodo={updatedTodos} />}
 				</div>
 			))}
 		</div>

@@ -9,8 +9,8 @@ import { useState } from 'react';
  * @returns
  */
 
-const useForm = ({ init }) => {
-	const [state, setState] = useState({ ...init });
+const useForm = (init) => {
+	const [state, setState] = useState(init);
 
 	const handleChange = (e) => {
 		const { name: key, value } = e.target;
@@ -24,6 +24,7 @@ const useForm = ({ init }) => {
 	const handleSubmit = (e, cb) => {
 		e.preventDefault();
 		cb();
+		setState(init);
 	};
 
 	return {

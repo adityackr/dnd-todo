@@ -10,11 +10,48 @@ const App = () => {
 		setTodos([...todos, todo]);
 	};
 
-	console.log(todos);
+	const updatedTodo = (updatedTodo) => {
+		const updatedTodos = todos.map((todo) => {
+			if (todo.id === updatedTodo.id) return updatedTodo;
+			return todo;
+		});
+		setTodos(updatedTodos);
+	};
+
+	const deleteTodo = (id) => {
+		const updatedTodos = todos.filter((todo) => todo.id !== id);
+		setTodos(updatedTodos);
+	};
+
+	const todoStatus = todos.filter((todo) => todo.status === 'Todo');
+	const inProgressStatus = todos.filter(
+		(todo) => todo.status === 'In Progress'
+	);
+	const doneStatus = todos.filter((todo) => todo.status === 'Done');
 
 	return (
 		<div>
-			<Todo addTodo={addTodo} todos={todos} />
+			<Todo
+				addTodo={addTodo}
+				todos={todoStatus}
+				updatedTodos={updatedTodo}
+				deleteTodo={deleteTodo}
+				heading={'TODO'}
+			/>
+			<Todo
+				addTodo={addTodo}
+				todos={inProgressStatus}
+				updatedTodos={updatedTodo}
+				deleteTodo={deleteTodo}
+				heading={'In Progress'}
+			/>
+			<Todo
+				addTodo={addTodo}
+				todos={doneStatus}
+				updatedTodos={updatedTodo}
+				deleteTodo={deleteTodo}
+				heading={'Done'}
+			/>
 		</div>
 	);
 };
