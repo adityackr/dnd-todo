@@ -2,7 +2,7 @@ import { Box, Container } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { generate } from 'shortid';
 import Todo from './components/boards/todo';
 
@@ -16,6 +16,13 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const App = () => {
 	const [todos, setTodos] = useState([]);
+
+	useEffect(() => {
+		const todos = JSON.parse(localStorage.getItem('todos'));
+		if (todos) {
+			setTodos(todos);
+		}
+	}, []);
 
 	const addTodo = (todo) => {
 		todo.id = generate();
@@ -52,6 +59,10 @@ const App = () => {
 		(todo) => todo.status === 'In Progress'
 	);
 	const doneStatus = todos.filter((todo) => todo.status === 'Done');
+
+	useEffect(() => {
+		localStorage.setItem('todos', JSON.stringify(todos));
+	}, [todos]);
 
 	return (
 		<Container maxWidth="lg" sx={{ marginTop: 5 }}>
