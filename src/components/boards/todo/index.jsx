@@ -39,10 +39,10 @@ const Todo = ({ addTodo, todos, updatedTodos, deleteTodo, heading }) => {
 		setAdd(false);
 	};
 
-	// const handleUpdatedTodos = (todo) => {
-	// 	updatedTodos(todo);
-	// 	setEdit(!edit);
-	// };
+	const handleUpdatedTodos = (todo) => {
+		updatedTodos(todo);
+		setEdit(!edit);
+	};
 
 	return (
 		<div>
@@ -100,7 +100,7 @@ const Todo = ({ addTodo, todos, updatedTodos, deleteTodo, heading }) => {
 
 						<Modal open={edit} onClose={() => setEdit(false)}>
 							<Box sx={style}>
-								<TodoForm values={todo} handleTodo={updatedTodos} />
+								<TodoForm values={todo} handleTodo={handleUpdatedTodos} />
 							</Box>
 						</Modal>
 					</CardContent>
