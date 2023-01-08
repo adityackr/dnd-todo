@@ -29,9 +29,12 @@ const Todo = ({
 	deleteTodo,
 	heading,
 	handleClose,
+	columnsData,
 }) => {
-	// const [edit, setEdit] = useState(false);
 	const [add, setAdd] = useState(false);
+	const [columns, setColumns] = useState(columnsData);
+
+	console.log(columnsData);
 
 	const handleAddButton = () => {
 		setAdd(true);
@@ -49,6 +52,8 @@ const Todo = ({
 	const handleUpdatedTodos = (todo) => {
 		updatedTodos(todo);
 	};
+
+	console.log(columns);
 
 	return (
 		<div>

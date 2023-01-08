@@ -64,6 +64,21 @@ const App = () => {
 		localStorage.setItem('todos', JSON.stringify(todos));
 	}, [todos]);
 
+	const columnsData = {
+		[generate()]: {
+			name: 'Todo',
+			items: todos.filter((todo) => todo.status === 'Todo'),
+		},
+		[generate()]: {
+			name: 'In Progress',
+			items: todos.filter((todo) => todo.status === 'In Progress'),
+		},
+		[generate()]: {
+			name: 'Done',
+			items: todos.filter((todo) => todo.status === 'Done'),
+		},
+	};
+
 	return (
 		<Container maxWidth="lg" sx={{ marginTop: 5 }}>
 			<Box sx={{ flexGrow: 1 }}>
@@ -77,6 +92,7 @@ const App = () => {
 								handleClose={handleClose}
 								deleteTodo={deleteTodo}
 								heading={'TODO'}
+								columnsData={columnsData}
 							/>
 						</Item>
 					</Grid>
@@ -89,6 +105,7 @@ const App = () => {
 								handleClose={handleClose}
 								deleteTodo={deleteTodo}
 								heading={'In Progress'}
+								columnsData={columnsData}
 							/>
 						</Item>
 					</Grid>
@@ -101,6 +118,7 @@ const App = () => {
 								handleClose={handleClose}
 								deleteTodo={deleteTodo}
 								heading={'Done'}
+								columnsData={columnsData}
 							/>
 						</Item>
 					</Grid>
