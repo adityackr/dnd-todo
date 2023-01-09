@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import TodoForm from '../../shared/todo-form';
+import TodoForm from '../shared/todo-form';
 
 const style = {
 	position: 'absolute',
