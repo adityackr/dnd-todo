@@ -1,18 +1,7 @@
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import {
-	Box,
-	Button,
-	Card,
-	CardContent,
-	Chip,
-	Modal,
-	Stack,
-	Typography,
-} from '@mui/material';
+import { Box, Button, Modal, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import BoardCard from '../board-card';
 import TodoForm from '../shared/todo-form';
 
 const style = {
@@ -134,6 +123,7 @@ const Boards = ({
 													padding: 2,
 													width: 350,
 													minHeight: 500,
+													borderRadius: 5,
 												}}
 											>
 												{column.items.map((todo, index) => {
@@ -150,6 +140,8 @@ const Boards = ({
 																		{...provided.draggableProps}
 																		{...provided.dragHandleProps}
 																		style={{
+																			padding: 2,
+																			borderRadius: 5,
 																			userSelect: 'none',
 																			margin: '0 0 8px 0',
 																			minHeight: '50px',
@@ -160,75 +152,12 @@ const Boards = ({
 																			...provided.draggableProps.style,
 																		}}
 																	>
-																		<Card key={todo.id}>
-																			<CardContent>
-																				<Stack
-																					direction="row"
-																					spacing={1}
-																					alignItems="flex-start"
-																				>
-																					<Chip
-																						label={todo.priority}
-																						color="primary"
-																						size="small"
-																					/>
-																					<Chip
-																						icon={<AccessTimeIcon />}
-																						label={todo.deadline}
-																						size="small"
-																					/>
-																				</Stack>
-																				<Stack
-																					justifyContent={'space-between'}
-																					alignItems={'center'}
-																					direction="row"
-																					spacing={2}
-																					sx={{ marginTop: 1 }}
-																				>
-																					<Typography
-																						variant="body1"
-																						component="body"
-																					>
-																						{todo.task}
-																					</Typography>
-																					<Stack
-																						justifyContent={'right'}
-																						alignItems={'center'}
-																						direction="row"
-																						spacing={0.05}
-																					>
-																						<Button
-																							size="small"
-																							onClick={() =>
-																								handleEdit(todo.id)
-																							}
-																						>
-																							<EditIcon color="success" />
-																						</Button>
-																						<Button
-																							size="small"
-																							onClick={() =>
-																								deleteTodo(todo.id)
-																							}
-																						>
-																							<DeleteIcon color="error" />
-																						</Button>
-																					</Stack>
-																				</Stack>
-
-																				<Modal
-																					open={todo.edit}
-																					onClose={() => handleEdit(todo.id)}
-																				>
-																					<Box sx={style}>
-																						<TodoForm
-																							values={todo}
-																							handleTodo={handleUpdatedTodos}
-																						/>
-																					</Box>
-																				</Modal>
-																			</CardContent>
-																		</Card>
+																		<BoardCard
+																			deleteTodo={deleteTodo}
+																			handleEdit={handleEdit}
+																			handleTodo={handleUpdatedTodos}
+																			todo={todo}
+																		/>
 																	</div>
 																);
 															}}
