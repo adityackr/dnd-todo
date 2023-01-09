@@ -15,14 +15,16 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const App = () => {
-	const [todos, setTodos] = useState([]);
+	const [todos, setTodos] = useState(
+		JSON.parse(localStorage.getItem('todos')) || []
+	);
 
-	useEffect(() => {
-		const todos = JSON.parse(localStorage.getItem('todos'));
-		if (todos) {
-			setTodos(todos);
-		}
-	}, []);
+	// useEffect(() => {
+	// 	const todos = JSON.parse(localStorage.getItem('todos'));
+	// 	if (todos) {
+	// 		setTodos(todos);
+	// 	}
+	// }, []);
 
 	const addTodo = (todo) => {
 		todo.id = generate();
@@ -60,24 +62,24 @@ const App = () => {
 	);
 	const doneStatus = todos.filter((todo) => todo.status === 'Done');
 
-	useEffect(() => {
-		localStorage.setItem('todos', JSON.stringify(todos));
-	}, [todos]);
-
 	const columnsData = {
-		[generate()]: {
+		Todo: {
 			name: 'Todo',
 			items: todos.filter((todo) => todo.status === 'Todo'),
 		},
-		[generate()]: {
+		'In Progress': {
 			name: 'In Progress',
 			items: todos.filter((todo) => todo.status === 'In Progress'),
 		},
-		[generate()]: {
+		Done: {
 			name: 'Done',
 			items: todos.filter((todo) => todo.status === 'Done'),
 		},
 	};
+
+	useEffect(() => {
+		localStorage.setItem('todos', JSON.stringify(todos));
+	}, [todos]);
 
 	return (
 		<Container maxWidth="lg" sx={{ marginTop: 5 }}>

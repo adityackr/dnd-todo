@@ -7,7 +7,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Modal from '@mui/material/Modal';
 import { Stack } from '@mui/system';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TodoForm from '../../shared/todo-form';
 
 const style = {
@@ -34,7 +34,7 @@ const Todo = ({
 	const [add, setAdd] = useState(false);
 	const [columns, setColumns] = useState(columnsData);
 
-	console.log(columnsData);
+	// console.log(columnsData);
 
 	const handleAddButton = () => {
 		setAdd(true);
@@ -46,12 +46,46 @@ const Todo = ({
 
 	const handleTodo = (values) => {
 		addTodo(values);
+		console.log(columnsData);
 		setAdd(false);
+		Object.entries(columns).map(([columnId, column]) => {
+			console.log(columnId, column);
+			if (columnId === values.status) {
+				setColumns((prev) => ({
+					...prev,
+					[columnId]: {
+						...prev[columnId],
+						items: [...prev[columnId].items, values],
+					},
+				}));
+			}
+		});
 	};
 
 	const handleUpdatedTodos = (todo) => {
 		updatedTodos(todo);
+		// Object.entries(columns).map(([columnId, column]) => {
+		// 	if (columnId === values.status) {
+		// 		setColumns((prev) => ({
+		// 			...prev,
+		// 			[columnId]: {
+		// 				...prev[columnId],
+		// 				items: [...prev[columnId].items, values],
+		// 			},
+		// 		}));
+		// 	}
+		// });
 	};
+
+	useEffect(() => {
+		setColumns(columnsData);
+	}, [columnsData]);
+
+	// useEffect(() => {
+	// 	localStorage.setItem('columns', JSON.stringify(columns));
+	// }, [columns]);
+
+	console.log(columnsData);
 
 	console.log(columns);
 
